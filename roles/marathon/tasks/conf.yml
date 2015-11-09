@@ -17,6 +17,8 @@
   file:
     dest: /etc/marathon/conf
     state: directory
+    mode: 0700
+    recurse: yes
   tags:
     - marathon
 
