@@ -27,6 +27,18 @@
   file:
     dest: /etc/marathon/store
     state: directory
+    mode: 0700
+    recurse: yes
+  tags:
+    - marathon
+
+- name: create marathon app directory
+  sudo: yes
+  file:
+    dest: /etc/marathon/apps
+    state: directory
+    mode: 0700
+    recurse: yes
   tags:
     - marathon
 
