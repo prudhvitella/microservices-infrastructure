@@ -13,7 +13,7 @@
   sudo: yes
   template:
     src: '{{ item }}.json.j2'
-    dest: /etc/marathon/{{ item }}.json
+    dest: /etc/marathon/apps/{{ item }}.json
   with_items:
     - mesos-consul
     - marathon-consul
@@ -23,7 +23,7 @@
 - name: start jobs
   run_once: true
   sudo: yes
-  command: 'curl -X PUT -d@/etc/marathon/{{ item }}.json -H "Content-Type: application/json" http://localhost:18080/v2/apps/{{ item }}'
+  command: 'curl -X PUT -d@/etc/marathon/apps/{{ item }}.json -H "Content-Type: application/json" http://localhost:18080/v2/apps/{{ item }}'
   changed_when: false
   with_items:
     - mesos-consul
