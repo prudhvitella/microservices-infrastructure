@@ -110,13 +110,13 @@ resource "vsphere_virtual_machine" "mi-edge-nodes" {
 }
 
 output "control_ips" {
-  value = "${join(\",\", vsphere_virtual_machine.mi-control-nodes.*.network_interface.ip_address)}"
+  value = "${join(\",\", vsphere_virtual_machine.mi-control-nodes.*.ip_address)}"
 }
 
 output "worker_ips" {
-  value = "${join(\",\", vsphere_virtual_machine.mi-worker-nodes.*.network_interface.ip_address)}"
+  value = "${join(\",\", vsphere_virtual_machine.mi-worker-nodes.*.ip_address)}"
 }
 
 output "edge_ips" {
-  value = "${join(\",\", vsphere_virtual_machine.mi-edge-nodes.*.network_interface.ip_address)}"
+  value = "${join(\",\", vsphere_virtual_machine.mi-edge-nodes.*.ip_address)}"
 }
