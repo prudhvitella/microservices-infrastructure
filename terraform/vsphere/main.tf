@@ -1,6 +1,6 @@
 variable "datacenter" {}
 variable "host" {}
-variable "pool" {}
+variable "pool" {default = ""}
 variable "template" {}
 variable "ssh_user" {}
 variable "ssh_key" {}
