@@ -21,6 +21,7 @@ variable ssh_user { default = "centos" }
 variable subnet_cidr { default = "10.10.10.0/24" }
 variable tenant_id { }
 variable tenant_name { }
+variable dns_nameservers { }
 
 provider "openstack" {
   auth_url	= "${ var.auth_url }"
@@ -154,6 +155,7 @@ resource "openstack_networking_subnet_v2" "ms-subnet" {
   network_id    = "${ openstack_networking_network_v2.ms-network.id }"
   cidr          = "${ var.subnet_cidr }"
   ip_version    = "${ var.ip_version }"
+  dns_nameservers = [ "${ var.dns_nameservers }" ]
 }
 
 resource "openstack_networking_router_v2" "ms-router" {
