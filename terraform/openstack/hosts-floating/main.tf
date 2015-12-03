@@ -21,7 +21,7 @@ variable ssh_user { default = "centos" }
 variable subnet_cidr { default = "10.10.10.0/24" }
 variable tenant_id { }
 variable tenant_name { }
-variable dns_nameservers { }
+variable subdomain { }
 
 provider "openstack" {
   auth_url	= "${ var.auth_url }"
@@ -61,7 +61,7 @@ resource "openstack_blockstorage_volume_v1" "mi-edge-lvm" {
 
 resource "openstack_compute_instance_v2" "control" {
   floating_ip = "${ element(openstack_compute_floatingip_v2.ms-control-floatip.*.address, count.index) }"
-  name                  = "${ var.short_name}-control-${format("%02d", count.index+1) }"
+  name                  = "${ var.short_name}-control-${format("%02d", count.index+1) }.node.${var.subdomain}"
   key_pair              = "${ var.keypair_name }"
   image_name            = "${ var.image_name }"
   flavor_name           = "${ var.control_flavor_name }"
@@ -81,7 +81,7 @@ resource "openstack_compute_instance_v2" "control" {
 
 resource "openstack_compute_instance_v2" "worker" {
   floating_ip = "${ element(openstack_compute_floatingip_v2.ms-worker-floatip.*.address, count.index) }"
-  name                  = "${ var.short_name}-worker-${format("%03d", count.index+1) }"
+  name                  = "${ var.short_name}-worker-${format("%03d", count.index+1) }.node.${var.subdomain}"
   key_pair              = "${ var.keypair_name }"
   image_name            = "${ var.image_name }"
   flavor_name           = "${ var.worker_flavor_name }"
@@ -101,7 +101,7 @@ resource "openstack_compute_instance_v2" "worker" {
 
 resource "openstack_compute_instance_v2" "edge" {
   floating_ip     = "${ element(openstack_compute_floatingip_v2.ms-edge-floatip.*.address, count.index) }"
-  name            = "${var.short_name}-edge-${format("%02d", count.index+1)}"
+  name            = "${var.short_name}-edge-${format("%02d", count.index+1)}.node.${var.subdomain}"
   key_pair        = "${var.keypair_name}"
   image_name      = "${var.image_name}"
   flavor_name     = "${var.edge_flavor_name}"
@@ -155,7 +155,6 @@ resource "openstack_networking_subnet_v2" "ms-subnet" {
   network_id    = "${ openstack_networking_network_v2.ms-network.id }"
   cidr          = "${ var.subnet_cidr }"
   ip_version    = "${ var.ip_version }"
-  dns_nameservers = [ "${ var.dns_nameservers }" ]
 }
 
 resource "openstack_networking_router_v2" "ms-router" {
