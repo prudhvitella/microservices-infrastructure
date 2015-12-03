@@ -527,7 +527,7 @@ class Certificates(Component):
             print('serial already exists')
         else:
             with open(serial, 'w') as fh:
-                fh.write(str(random.randint(1,sys.maxint - 1)))
+                fh.write(str(random.randint(1,1000000)))
 
             print('created serial')
 
