@@ -1,0 +1,41 @@
+---
+- name: download node exporter
+  sudo: yes
+  get_url:
+    url: '{{ node_exporter_download }}'
+    dest: /root/{{ node_exporter_filename }}
+  tags:
+    - prometheus
+
+- name: unarchive node exporter
+  sudo: yes
+  unarchive: src=/root/{{ node_exporter_filename }} dest=/usr/bin copy=no
+  tags:
+    - prometheus
+
+- name: install node exporter as a systemd managed service
+  sudo: yes
+  copy:
+    src: 'node_exporter.service'
+    dest: '/etc/systemd/system/node_exporter.service'
+  notify:
+    - reload systemd daemon
+    - enable node-exporter service
+  tags:
+    - prometheus
+
+- name: generate node exporter consul service
+  sudo: yes
+  copy:
+    src: 'node-exporter.json'
+    dest: '/etc/consul/node-exporter.json'
+  tags:
+    - prometheus
+
+- name: start node-exporter
+  sudo: yes
+  command: systemctl start node_exporter.service
+  notify:
+    - reload consul
+  tags:
+    - prometheus

@@ -1,0 +1,13 @@
+{
+  "services": [
+    {
+      "name": "node-exporter",
+      "id": "node-exporter-http",
+      "tags": [ "http" ],
+      "port": 9100,
+      "check": {
+        "script": "curl localhost:9100 >/dev/null 2>&1", "interval": "15s", "timeout": "2s"
+      }
+    }
+  ]
+}
