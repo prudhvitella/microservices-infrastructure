@@ -1,0 +1,16 @@
+---
+- name: reload consul
+  sudo: yes
+  command: systemctl reload consul
+
+- name: reload systemd daemon
+  sudo: yes
+  command: systemctl daemon-reload
+
+- name: enable node-exporter service
+  sudo: yes
+  command: systemctl enable node_exporter.service
+
+- name: start node-exporter service
+  sudo: yes
+  command: systemctl start node_exporter.service
