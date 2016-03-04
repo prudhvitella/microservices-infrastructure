@@ -2,10 +2,10 @@ Mantl documentation
 ==========================================
 
 .. image:: /_static/gitter.svg
-   :alt: Join the chat at https://gitter.im/CiscoCloud/microservices-infrastructure
-   :target: https://gitter.im/CiscoCloud/microservices-infrastructure
+   :alt: Join the chat at https://gitter.im/CiscoCloud/mantl
+   :target: https://gitter.im/CiscoCloud/mantl
 
-.. image:: https://badge.waffle.io/CiscoCloud/microservices-infrastructure.png?label=ready&title=Ready
+.. image:: https://badge.waffle.io/CiscoCloud/mantl.png?label=ready&title=Ready
    :alt: Stories in Ready
    :target: https://waffle.io/CiscoCloud/microservices-infrastructure
 
@@ -31,6 +31,7 @@ Features
   service discovery with Mesos tasks
 * `marathon-consul <https://github.com/CiscoCloud/marathon-consul>`_ update
   consul k/v with Marathon tasks
+* `ELK Stack <https://www.elastic.co/webinars/introduction-elk-stack>`_
 * Multi-datacenter support
 * High availablity
 * Security
@@ -42,13 +43,15 @@ Contents:
 
    getting_started/index.rst
    components/index.rst
+   addons.rst
    security/index.rst
+   upgrading/index.rst
    packer.rst
    changelog.rst
-   roadmap.rst
+   faq.rst
    license.rst
 
-.. only:: html 
+.. only:: html
 
    Indices and Tables
    ******************
