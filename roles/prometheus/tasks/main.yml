@@ -39,3 +39,9 @@
     - reload consul
   tags:
     - prometheus
+
+- include: mesos_exporter_master.yml
+  when: mesos_mode is defined and mesos_mode == "leader"
+
+- include: mesos_exporter_slave.yml
+  when: mesos_mode is defined and mesos_mode == "follower"

@@ -1,0 +1,28 @@
+---
+- name: pull docker image
+  sudo: yes
+  command: "docker pull prom/mesos-exporter:latest"
+  tags:
+    - prometheus
+
+- name: stop mesos exporter
+  sudo: yes
+  command: "docker stop mesos-exporter"
+  ignore_errors: yes
+  tags:
+    - prometheus
+
+- name: rm mesos exporter container
+  sudo: yes
+  command: "docker rm mesos-exporter"
+  ignore_errors: yes
+  tags:
+    - prometheus
+
+- name: run mesos exporter
+  sudo: yes
+  command: "docker run -d --name mesos-exporter -p 9105:9105 --net=host prom/mesos-exporter -exporter.scrape-mode=slave -exporter.url=http://localhost:5051"
+  notify:
+    - reload consul
+  tags:
+    - prometheus

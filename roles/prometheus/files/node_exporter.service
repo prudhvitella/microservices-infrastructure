@@ -2,7 +2,6 @@
 Description=Node Exporter
 
 [Service]
-User=tier3
 ExecStart=/usr/bin/node_exporter
 
 [Install]
