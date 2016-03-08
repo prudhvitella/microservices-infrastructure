@@ -1,0 +1,13 @@
+---
+- hosts: all
+  gather_facts: no
+  tasks:
+  - name: remove stopped containers containers
+    shell: sudo docker rm $(sudo docker ps -aq)
+    changed_when: no
+    ignore_errors: yes
+
+  - name: remove unused images
+    shell: sudo docker rmi $(sudo docker images -q)
+    changed_when: no
+    ignore_errors: yes
