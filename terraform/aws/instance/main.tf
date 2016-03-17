@@ -12,6 +12,7 @@ variable "source_ami" {}
 variable "security_group_ids" {}
 variable "vpc_subnet_ids" {}
 variable "ssh_username" {default = "centos"}
+variable "count_format" {default = "%02d"}
 
 
 resource "aws_ebs_volume" "ebs" {
@@ -21,7 +22,7 @@ resource "aws_ebs_volume" "ebs" {
   type = "gp2"
 
   tags {
-    Name = "${var.short_name}-${var.role}-lvm-${format("%02d", count.index+1)}"
+    Name = "${var.short_name}-${var.role}-lvm-${format("${var.count_format}", count.index+1)}"
   }
 }
 
@@ -40,7 +41,7 @@ resource "aws_instance" "instance" {
   }
 
   tags {
-    Name = "${var.short_name}-${var.role}-${format("%02d", count.index+1)}"
+    Name = "${var.short_name}-${var.role}-${format("${var.count_format}", count.index+1)}"
     sshUser = "${var.ssh_username}"
     role = "${var.role}"
     dc = "${var.datacenter}"
@@ -63,5 +64,5 @@ output "ec2_ids" {
 }
 
 output "ec2_ips" {
-  value = "${join(\",\", aws_instance.instance.*.public_ip)}"
+  value = "${join(\",\", aws_instance.instance.*.private_ip)}"
 }

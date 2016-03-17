@@ -325,7 +325,7 @@ def aws_host(resource, module_name):
                                              'vpc_security_group_ids'),
         # ansible-specific
         'ansible_ssh_port': 22,
-        'ansible_ssh_host': raw_attrs['public_ip'],
+        'ansible_ssh_host': raw_attrs['private_ip'],
         # generic
         'public_ipv4': raw_attrs['public_ip'],
         'private_ipv4': raw_attrs['private_ip'],
